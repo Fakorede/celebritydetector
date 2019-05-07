@@ -2,8 +2,6 @@ body {
   margin: 0;
   padding: 0;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   background: #4ecdc4; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
@@ -15,11 +13,6 @@ body {
     #556270,
     #4ecdc4
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
 }
 
 button {
