@@ -4,6 +4,7 @@ import Logo from "./components/Logo/Logo";
 import Rank from "./components/Rank/Rank";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
+import Celebrity from "./components/Celebrity/Celebrity";
 import "./App.css";
 
 import Particles from "react-particles-js";
@@ -34,7 +35,8 @@ class App extends Component {
     this.state = {
       input: "",
       imageUrl: "",
-      box: ""
+      box: "",
+      stats: ""
     };
   }
 
@@ -52,7 +54,24 @@ class App extends Component {
     };
   };
 
-  
+  detectCelebrity = data => {
+    let celebrityName =
+      data.outputs[0].data.regions[0].data.face.identity.concepts[0].name;
+    celebrityName =
+      celebrityName.charAt(0).toUpperCase() +
+      celebrityName.substring(1).toUpperCase();
+    let celebrityProbability =
+      data.outputs[0].data.regions[0].data.face.identity.concepts[0].value;
+
+    return {
+      name: celebrityName,
+      value: celebrityProbability * 100
+    };
+  };
+
+  displayCelebrityStats = stats => {
+    this.setState({ stats: stats });
+  };
 
   displayFaceBox = box => {
     this.setState({ box: box });
@@ -66,7 +85,10 @@ class App extends Component {
     this.setState({ imageUrl: this.state.input });
     app.models
       .predict("e466caa0619f444ab97497640cefc4dc", this.state.input)
-      .then(response => console.log(response))
+      .then(response => {
+        this.displayFaceBox(this.calculateFaceLocation(response));
+        this.displayCelebrityStats(this.detectCelebrity(response));
+      })
       .catch(err => console.log(err));
   };
 
@@ -81,6 +103,7 @@ class App extends Component {
           onInputChange={this.onInputChange}
           onButtonSubmit={this.onButtonSubmit}
         />
+        <Celebrity stats={this.state.stats} />
         <FaceRecognition imageUrl={this.state.imageUrl} box={this.state.box} />
       </div>
     );

@@ -5,7 +5,7 @@ const ImageLinkForm = ({ onInputChange, onButtonSubmit }) => {
   return (
     <div className="ma4 mt0">
       <p className="f3">
-        This application detects Celebrity faces in pictures. Why not give it a
+        This application detects Celebrity faces in images. Why not give it a
         try?!
       </p>
       <div className="center">
