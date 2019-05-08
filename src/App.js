@@ -42,7 +42,7 @@ class App extends Component {
       route: "signin",
       isSignedIn: "false"
     };
-  }
+  } 
 
   calculateFaceLocation = data => {
     const clarifaiFace =
